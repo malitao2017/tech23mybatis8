@@ -1,0 +1,32 @@
+
+标题：MyBatis学习总结(八)——Mybatis3.x与Spring4.x整合
+来源：http://www.cnblogs.com/xdp-gacl/p/4271627.html
+
+
+案例标题：spring4-mybatis3
+使用Servlet3.0
+访问地址： http://localhost:8082/tech23mybatis8/UserServlet
+
+1.使用自动生成工具：　mybatis-generator-core-1.3.2
+自动关联数据库，生成实体、dao、xml映射
+
+2.开发时候使用私服nexus更加方便
+
+3.我们还可以使用Spring提供的Junit测试框架进行单元测试
+
+4.创建时候的报错：参考http://songjianyong.iteye.com/blog/1663170
+
+5.UserMapper.xml这个文件的内容是编写操作t_user表的SQL语句，重点说一下UserMapper.xml配置中需要注意的几个小细节问题：
+　　1、UserMapper.xml的<mapper>标签的namespace必须是UserMapper接口的全类名，既<mapper namespace="me.gacl.dao.UserMapper" >
+　　2、UserMapper.xml的定义操作数据库的<select><delete><update><insert>这些标签的id属性的值必须和UserMapper接口定义的方法名一致，如下图所示：
+　　之所以有上述说的这两点要求，就是为了能够让MyBatis能够根据UserMapper接口和UserMapper.xml文件去自动实现UserMapper接口中定义的相关方法，这样我们就不再需要针对UserMapper接口去编写具体的实现代码了。
+
+6.注意，由于要使用Servlet3.0，所以必须将项目部署到tomcat7.x以上的服务器中去运行
+
+
+注意：
+Maven clean→Clean项目→Maven install这三个步骤去解决问题 
+再执行Maven install操作又可以正常编译通过了，这让我郁闷了好久，这应该不是我项目配置的原因，而是Maven的原因，具体也不知道为啥会这样。反正这算是一种解决办法吧，如果遇到执行Maven install操作不能正常编译通过的情况：可以尝试采用：Maven clean→Clean项目→Maven install这三个步骤去解决问题。
+
+
+
